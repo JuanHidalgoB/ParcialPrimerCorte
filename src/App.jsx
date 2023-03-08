@@ -13,11 +13,17 @@ function App() {
 {
   id: 3,
   name:"Nacional"
-}])
+},
+{
+id: 4,
+name: "De Bogotá"
+},
+{
+  id: 5,
+  name: "De Medellín"
+  }])
 
 const [compras,setCompras] = useState([])
-
-
 
 const [compra,setCompra] = useState( 
   {num: 0,
@@ -30,8 +36,6 @@ const setNewCompra = () =>{
 
 const addNewCompras = () => {
   setCompras(x => [...x,compra])
-
-  
   }
 
 const[numero, setNumero] = useState('')
@@ -42,7 +46,8 @@ const[numero, setNumero] = useState('')
           num: parseInt(evt.target.value),
           price: precio,
           nloteria: nomLoteria
-      })
+       }
+      )
     }
 
 const[precio, setPrecio] = useState('')
@@ -52,7 +57,8 @@ const[precio, setPrecio] = useState('')
           num: numero,
           price: parseInt(evt.target.value),
           nloteria: nomLoteria
-      })
+        } 
+      )
     }
 
 const[nomLoteria, setNomLoteria] = useState('Del Valle')
@@ -67,16 +73,13 @@ const [total,setTotal] = useState(0)
 
 
 const mostrarTotal = () =>{
-
     compras.map(x=>{
       const t = 0
       setTotal(t => t + parseInt(x.price)
         )
-    })
-    }
-
-
-
+      }
+    )
+  }
 
 return(
 
@@ -90,14 +93,15 @@ return(
       (lot,key) => {
         return(
           <option value={lot.name}>{lot.name}</option>
-        )
-      }
-    )}
+         )
+        }
+       )
+     }
 </select>
     <label htmlFor="num">Número</label>
-    <input id="num" type="number" maxLength={4} minLength ={3} placeholder='numero' value={numero} onChange = {(event)=>onInputChangeN(event)} />
+    <input id="num" type="text" minLength={3} maxLength={4} placeholder='numero' value={numero} onChange = {(event)=>onInputChangeN(event)} />
     <label htmlFor="precio">Precio</label>
-    <input id="precio" type="number" maxLength={4} minLength ={3} placeholder='precio' value={precio} onChange = {(event)=>onInputChange(event)} />
+    <input id="precio" type="text" maxLength={4} minLength ={3} placeholder='precio' value={precio} onChange = {(event)=>onInputChange(event)} />
     <button onClick={()=>setNewCompra()}>Añadir</button>
     <button onClick={()=>mostrarTotal()}>Mostrar Total</button>
 
@@ -111,37 +115,28 @@ return(
           </tr>
         </thead>
 
-  {compras.map((x, index) => {
+  {compras.map(x => {
     return(
-   
-       
         <tbody>
           <tr>
-            <td>{x.nloteria}</td>
+            <td >{x.nloteria}</td>
             <td>{x.num}</td>
             <td>{x.price}</td>
           </tr>
         </tbody>
-      
-    
- 
-)})}
-</table>
+          )
+        }
+      )
+    }
+    </table>
           
-      
-   
+      <br />
+      <br />
 
-    <br />
-    <br />
-
-       <h3 >Total:  {total}</h3>
-
-    </div>
-    
+        <h3 >Total:  {total}</h3>
+    </div> 
   </>
-  
-)
-  
+  ) 
 }
 
 export default App

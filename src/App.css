@@ -17,9 +17,13 @@ div label{
 
 table{
   margin: 0 auto;
-  border-spacing: 30px;
+  border-spacing: 10px;
 }
 
+td, td {
+  padding-left: 40px;
+  padding-right: 40px;
+}
 .logo {
   height: 6em;
   padding: 1.5em;
