@@ -15,6 +15,11 @@ div label{
 
 }
 
+
+td {
+  margin: 50px;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;

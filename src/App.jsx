@@ -1,9 +1,8 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
+import { useState,useEffect } from 'react'
 import './App.css'
 
 function App() {
-  const Loterias = [{
+  const [Loterias,setLoterias] = useState([{
     id: 1,
     name: "Del Valle"
   },
@@ -14,35 +13,61 @@ function App() {
 {
   id: 3,
   name:"Nacional"
-}]
+}])
 
-const[numero, setinputNumero] = useState('')
+const [compras,setCompras] = useState([{}])
+
+
+
+const [compra,setCompra] = useState( 
+  {num: 0,
+  price:0,
+  nloteria:"Del Valle"})
+
+const setNewCompra = () =>{
+  addNewCompras()
+}
+
+const addNewCompras = () => {
+  setCompras(x => [...x,compra])
+
+  
+  }
+
+const[numero, setNumero] = useState('')
     const onInputChangeN = (evt) => {
-        setinputNumero(evt.target.value)
+        setNumero(evt.target.value)
+
+        setCompra({
+          num: parseInt(evt.target.value),
+          price: compra.price,
+          nloteria: compra.nloteria
+      })
     }
 
-
-
-const[precio, setinputPrecio] = useState('')
+const[precio, setPrecio] = useState('')
     const onInputChange = (evt) => {
-        setinputPrecio(evt.target.value)
+        setPrecio(evt.target.value)
+        setCompra({
+          num: compra.num,
+          price: parseInt(evt.target.value),
+          nloteria: compra.nloteria
+      })
+    }
+
+const[nomLoteria, setNomLoteria] = useState('Del Valle')
+    const onInputChangeL = (evt) => {
+        setNomLoteria(evt.target.value)
+        setCompra({num: numero,
+          price: precio,
+          nloteria: nomLoteria})
     }
 
 const mostarLoteria = () =>{
-      console.log(numero, precio)
+      console.log(compra)
+      console.log(compras)
     }
 
-const [compras,setCompra] = useState([
-  {numero: 10,
-precio:2000,
-nLoteria:"Del Valle"}]
-)
-const onInputChangeC = () => {
-  const compraNueva = {numero: numero,
-  precio: precio,
-  nLoteria:"Del Valle"}
-  setCompra(x => [...{x},{compraNueva}])
-  }
 
 
 
@@ -53,7 +78,7 @@ return(
   
   <div>
   <label htmlFor="select">Lotería</label>
-  <select id="select" name="select">
+  <select id="select" name="select" value={nomLoteria} onChange = {(event) => onInputChangeL(event)}>
     {Loterias.map(
       (lot,key) => {
         return(
@@ -63,32 +88,31 @@ return(
     )}
 </select>
     <label htmlFor="num">Número</label>
-    <input id="num" type="number" placeholder='numero' value={numero} onChange = {(event)=>onInputChangeN(event)}/>
+    <input id="num" type="number" maxLength={4} minLength ={3} placeholder='numero' value={numero} onChange = {(event)=>onInputChangeN(event)} />
     <label htmlFor="precio">Precio</label>
-    <input id="precio" type="number" placeholder='precio' value={precio} onChange = {(event)=>onInputChange(event)} />
-    <button onClick={()=>on()}>Añadir</button>
+    <input id="precio" type="number" maxLength={4} minLength ={3} placeholder='precio' value={precio} onChange = {(event)=>onInputChange(event)} />
+    <button onClick={()=>setNewCompra()}>Añadir</button>
     <button onClick={()=>mostarLoteria()}>mostrar</button>
-    </div>
 
-    <div>
 
-      <br />
-      <label htmlFor="">Lotería</label>
-      <label htmlFor="">Número</label>
-      <label htmlFor="">Precio</label>
-      <br />
-      {compras.map((x)=>{
+    {compras.map((x, index) => {
       return(
-        <>
-        <label htmlFor="">{x.nLoteria}</label>
-        <label htmlFor="">{x.numero}</label>
-        <label htmlFor="">{x.precio}</label>
-        <br />
-        </>
-      )})}
-    </div>
+          <div>
 
+          <label htmlFor="">{x.nloteria}</label>
+          <label htmlFor="">{x.num}</label>
+          <label htmlFor="">{x.price}</label>
+          </div>
+          
+      
+   
+    )})}
+
+
+    </div>
+    
   </>
+  
 )
   
 }
