@@ -15,9 +15,9 @@ div label{
 
 }
 
-
-td {
-  margin: 50px;
+table{
+  margin: 0 auto;
+  border-spacing: 30px;
 }
 
 .logo {

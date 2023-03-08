@@ -15,7 +15,7 @@ function App() {
   name:"Nacional"
 }])
 
-const [compras,setCompras] = useState([{}])
+const [compras,setCompras] = useState([])
 
 
 
@@ -40,8 +40,8 @@ const[numero, setNumero] = useState('')
 
         setCompra({
           num: parseInt(evt.target.value),
-          price: compra.price,
-          nloteria: compra.nloteria
+          price: precio,
+          nloteria: nomLoteria
       })
     }
 
@@ -49,23 +49,30 @@ const[precio, setPrecio] = useState('')
     const onInputChange = (evt) => {
         setPrecio(evt.target.value)
         setCompra({
-          num: compra.num,
+          num: numero,
           price: parseInt(evt.target.value),
-          nloteria: compra.nloteria
+          nloteria: nomLoteria
       })
     }
 
 const[nomLoteria, setNomLoteria] = useState('Del Valle')
     const onInputChangeL = (evt) => {
         setNomLoteria(evt.target.value)
-        setCompra({num: numero,
+        setCompra({
+          num: numero,
           price: precio,
-          nloteria: nomLoteria})
+          nloteria: (evt.target.value)})
     }
+const [total,setTotal] = useState(0)
 
-const mostarLoteria = () =>{
-      console.log(compra)
-      console.log(compras)
+
+const mostrarTotal = () =>{
+
+    compras.map(x=>{
+      const t = 0
+      setTotal(t => t + parseInt(x.price)
+        )
+    })
     }
 
 
@@ -92,22 +99,42 @@ return(
     <label htmlFor="precio">Precio</label>
     <input id="precio" type="number" maxLength={4} minLength ={3} placeholder='precio' value={precio} onChange = {(event)=>onInputChange(event)} />
     <button onClick={()=>setNewCompra()}>Añadir</button>
-    <button onClick={()=>mostarLoteria()}>mostrar</button>
+    <button onClick={()=>mostrarTotal()}>Mostrar Total</button>
 
 
-    {compras.map((x, index) => {
-      return(
-          <div>
+    <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Número</th>
+            <th>Precio</th>
+          </tr>
+        </thead>
 
-          <label htmlFor="">{x.nloteria}</label>
-          <label htmlFor="">{x.num}</label>
-          <label htmlFor="">{x.price}</label>
-          </div>
+  {compras.map((x, index) => {
+    return(
+   
+       
+        <tbody>
+          <tr>
+            <td>{x.nloteria}</td>
+            <td>{x.num}</td>
+            <td>{x.price}</td>
+          </tr>
+        </tbody>
+      
+    
+ 
+)})}
+</table>
           
       
    
-    )})}
 
+    <br />
+    <br />
+
+       <h3 >Total:  {total}</h3>
 
     </div>
     
